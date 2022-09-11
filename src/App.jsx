@@ -15,36 +15,24 @@ import capitals from "./capitals.json";
 
 const App = () => {
   const [content, setContent] = useState("");
-  const [countryName, setCountryName] = useState({});
-  const [country, setCountry] = useState("");
+  // const [countryName, setCountryName] = useState({});
+  // const [country, setCountry] = useState("");
   const worldMap =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
 
   const worldCities = capitals;
   console.log(worldCities);
 
-  // const searchCountry=()=>{
-  //   worldCities.filter(e=>e.properties.countryName-2)
-  // }
-  //need to get country abbreviation
-  //but for some reason, the returned format is not chooseable(or I don't know how)
-  //So I loop over the object at question in geographies (which is a country)
-  //and get the country abbreviation from there
-  const getCountryAbbr = () => {
-    for (const [key, value] of Object.entries(countryName)) {
-      console.log(`${key}: ${value}`);
-      console.log(value);
-      setCountry(value);
-    }
-    displayCities();
-  };
-
   const displayCities = () => {
-    let result = worldCities.filter((e) => e.country.toString() == "RU");
+    let result = worldCities.features.filter(
+      (e) => e.properties.country.toString() == content.toString()
+    );
     console.log(result);
+    console.log(worldCities);
     // let arr = [];
     // worldCities.map((city) => arr.push(city.country));
     // console.log(arr);
+    console.log(content.toString());
   };
 
   return (
@@ -60,22 +48,22 @@ const App = () => {
             <Geographies geography={worldMap}>
               {/* array of all the countries in the map */}
               {({ geographies }) =>
-                geographies.map((e) => (
+                geographies.map((e, index) => (
                   // individual country
                   <Geography
-                    key={e.id}
+                    key={index}
                     geography={e}
                     onMouseEnter={() => {
                       // const { NAME } = e.properties;
                       setContent(e.properties.name);
                       console.log(e);
-                      setCountryName(e.properties);
+                      // setCountryName(e.properties);
                     }}
                     onMouseLeave={() => {
                       setContent("");
                     }}
                     onClick={() => {
-                      getCountryAbbr();
+                      displayCities();
                     }}
                     style={{
                       hover: {
@@ -101,7 +89,7 @@ const App = () => {
                 </Marker>
               );
             })} */}
-            <Annotation
+            {/* <Annotation
               subject={[worldCities[50].lat, worldCities[49].lng]}
               dx={-90}
               dy={-30}
@@ -119,7 +107,7 @@ const App = () => {
               >
                 {"Paris"}
               </text>
-            </Annotation>
+            </Annotation> */}
           </ZoomableGroup>
         </ComposableMap>
       </div>
