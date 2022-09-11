@@ -107,7 +107,11 @@ const App = () => {
               <circle r={5} fill="yellow" stroke="white" strokeWidth={2} />
               <text
                 textAnchor="middle"
-                style={{ fontFamily: "system-ui", fill: "red" }}
+                style={{
+                  fontFamily: "system-ui",
+                  fill: "yellow",
+                  fontWeight: "bold",
+                }}
               >
                 {chosenCountry[0].properties.city}
               </text>
