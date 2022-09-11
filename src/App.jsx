@@ -10,31 +10,41 @@ import {
   Graticule,
 } from "react-simple-maps";
 import ReactTooltip from "react-tooltip";
-import cities from "cities.json";
+// import cities from "cities.json";
+import capitals from "./capitals.json";
 
 const App = () => {
   const [content, setContent] = useState("");
-  const [alpha, setAlpha] = useState({});
+  const [countryName, setCountryName] = useState({});
   const [country, setCountry] = useState("");
   const worldMap =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
 
-  const worldCities = cities;
+  const worldCities = capitals;
   console.log(worldCities);
 
   // const searchCountry=()=>{
-  //   worldCities.filter(e=>e.properties.Alpha-2)
+  //   worldCities.filter(e=>e.properties.countryName-2)
   // }
   //need to get country abbreviation
   //but for some reason, the returned format is not chooseable(or I don't know how)
   //So I loop over the object at question in geographies (which is a country)
   //and get the country abbreviation from there
   const getCountryAbbr = () => {
-    for (const [key, value] of Object.entries(alpha)) {
+    for (const [key, value] of Object.entries(countryName)) {
       console.log(`${key}: ${value}`);
       console.log(value);
       setCountry(value);
     }
+    displayCities();
+  };
+
+  const displayCities = () => {
+    let result = worldCities.filter((e) => e.country.toString() == "RU");
+    console.log(result);
+    // let arr = [];
+    // worldCities.map((city) => arr.push(city.country));
+    // console.log(arr);
   };
 
   return (
@@ -58,8 +68,8 @@ const App = () => {
                     onMouseEnter={() => {
                       // const { NAME } = e.properties;
                       setContent(e.properties.name);
-                      console.log(e.properties);
-                      setAlpha(e.properties);
+                      console.log(e);
+                      setCountryName(e.properties);
                     }}
                     onMouseLeave={() => {
                       setContent("");
