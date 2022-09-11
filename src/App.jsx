@@ -25,7 +25,7 @@ const App = () => {
 
   const displayCities = () => {
     let result = worldCities.features.filter(
-      (e) => e.properties.country.toString() == content.toString()
+      (e) => e.properties.iso3.toString() == content.toString()
     );
     console.log(result);
     console.log(worldCities);
@@ -55,7 +55,7 @@ const App = () => {
                     geography={e}
                     onMouseEnter={() => {
                       // const { NAME } = e.properties;
-                      setContent(e.properties.name);
+                      setContent(e.id);
                       console.log(e);
                       // setCountryName(e.properties);
                     }}
