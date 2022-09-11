@@ -16,7 +16,12 @@ import capitals from "./capitals.json";
 const App = () => {
   const [content, setContent] = useState("");
   const [countryName, setCountryName] = useState("");
-  const [chosenCountry, setChosenCountry] = useState("");
+  const [chosenCountry, setChosenCountry] = useState([
+    {
+      geometry: { coordinates: [37.35, 55.45] },
+      properties: { city: "Moscow" },
+    },
+  ]);
   // const [country, setCountry] = useState("");
   const worldMap =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
@@ -31,7 +36,7 @@ const App = () => {
     console.log(result);
     setChosenCountry(result);
     console.log(worldCities);
-    console.log(chosenCountry[0].geometry);
+    console.log(chosenCountry[0]);
     // let arr = [];
     // worldCities.map((city) => arr.push(city.country));
     // console.log(arr);
@@ -41,6 +46,7 @@ const App = () => {
   return (
     <div className="App">
       <h1>lets build</h1>
+      {/* {chosenCountry[0]} */}
       <ReactTooltip>{countryName} </ReactTooltip>
       <div className="mapContainer">
         {/* projection="geoAzimuthalEqualArea" can be added to ComposableMap to change the map projection */}
@@ -96,13 +102,14 @@ const App = () => {
               );
             })} */}
 
-            <Marker coordinates={[37.35, 55.45]}>
-              <circle r={10} fill="yellow" stroke="white" strokeWidth={2} />
+            {/* <Marker coordinates={chosenCountry[0].geometry.coordinates}> */}
+            <Marker coordinates={chosenCountry[0].geometry.coordinates}>
+              <circle r={5} fill="yellow" stroke="white" strokeWidth={2} />
               <text
                 textAnchor="middle"
-                style={{ fontFamily: "system-ui", fill: "orange" }}
+                style={{ fontFamily: "system-ui", fill: "red" }}
               >
-                lool
+                {chosenCountry[0].properties.city}
               </text>
             </Marker>
             {/* <Annotation
