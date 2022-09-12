@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useEffect } from "react";
 import "./App.css";
 import {
   ComposableMap,
@@ -8,6 +8,7 @@ import {
   Annotation,
   ZoomableGroup,
   Graticule,
+  Line,
 } from "react-simple-maps";
 import ReactTooltip from "react-tooltip";
 // import cities from "cities.json";
@@ -22,6 +23,8 @@ const App = () => {
       properties: { city: "Moscow" },
     },
   ]);
+  const [location, setLocation] = useState([]);
+  const [bool, setBool] = useState(false);
   // const [country, setCountry] = useState("");
   const worldMap =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
@@ -35,13 +38,25 @@ const App = () => {
     );
     console.log(result);
     setChosenCountry(result);
-    console.log(worldCities);
-    console.log(chosenCountry[0]);
-    // let arr = [];
-    // worldCities.map((city) => arr.push(city.country));
-    // console.log(arr);
-    console.log(content.toString());
+    // console.log(worldCities);
+    // console.log(chosenCountry[0]);
+
+    // console.log(content.toString());
+    addLocation();
   };
+
+  const addLocation = () => {
+    setLocation((location) => [
+      ...location,
+      chosenCountry[0].geometry.coordinates,
+    ]);
+    console.log(location);
+  };
+
+  useEffect(() => {
+    console.log(location);
+    setBool(true);
+  }, [location.length]);
 
   return (
     <div className="App">
@@ -65,7 +80,7 @@ const App = () => {
                     onMouseEnter={() => {
                       // const { NAME } = e.properties;
                       setContent(e.id);
-                      console.log(e);
+                      // console.log(e);
                       setCountryName(e.properties.name);
                     }}
                     onMouseLeave={() => {
@@ -73,6 +88,7 @@ const App = () => {
                     }}
                     onClick={() => {
                       displayCities();
+                      console.log(e);
                     }}
                     style={{
                       hover: {
@@ -99,6 +115,22 @@ const App = () => {
                 {chosenCountry[0].properties.city}
               </text>
             </Marker>
+            {/* Line from A to B */}
+            {location.length > 1 && (
+              <Line
+                from={[
+                  location[location.length - 2][0],
+                  location[location.length - 2][1],
+                ]}
+                to={[
+                  location[location.length - 1][0],
+                  location[location.length - 1][1],
+                ]}
+                stroke="#FF5533"
+                strokeWidth={4}
+                strokeLinecap="round"
+              />
+            )}
             {/* <Annotation
               subject={[worldCities[50].lat, worldCities[49].lng]}
               dx={-90}
