@@ -47,7 +47,7 @@ const App = () => {
   };
 
   const addLocation = () => {
-    const locationArray = [...location, chosenCountry[0].geometry.coordinates];
+    const locationArray = [...location, chosenCountry[0]];
     setLocation(locationArray);
     console.log(location);
     locationRef.current = locationArray;
@@ -58,11 +58,25 @@ const App = () => {
     addLocation();
 
     console.log(location);
+    console.log(locationRef.current);
   }, [chosenCountry]);
 
   return (
     <div className="App">
-      <h1>lets build</h1>
+      <h1>React Simple Map</h1>
+      {locationRef.current.length > 1 && (
+        <div>
+          From
+          {" " +
+            locationRef.current[locationRef.current.length - 2].properties
+              .city}{" "}
+          to
+          {" " +
+            locationRef.current[locationRef.current.length - 1].properties
+              .city}{" "}
+        </div>
+      )}
+
       {/* {chosenCountry[0]} */}
       <ReactTooltip>{countryName} </ReactTooltip>
       <div className="mapContainer">
@@ -117,16 +131,21 @@ const App = () => {
                 {chosenCountry[0].properties.city}
               </text>
             </Marker>
+
             {/* Line from A to B */}
             {locationRef.current.length > 1 && (
               <Line
                 from={[
-                  locationRef.current[locationRef.current.length - 2][0],
-                  locationRef.current[locationRef.current.length - 2][1],
+                  locationRef.current[locationRef.current.length - 2].geometry
+                    .coordinates[0],
+                  locationRef.current[locationRef.current.length - 2].geometry
+                    .coordinates[1],
                 ]}
                 to={[
-                  locationRef.current[locationRef.current.length - 1][0],
-                  locationRef.current[locationRef.current.length - 1][1],
+                  locationRef.current[locationRef.current.length - 1].geometry
+                    .coordinates[0],
+                  locationRef.current[locationRef.current.length - 1].geometry
+                    .coordinates[1],
                 ]}
                 stroke="#FF5533"
                 strokeWidth={4}
