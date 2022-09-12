@@ -133,10 +133,10 @@ const App = () => {
                 strokeLinecap="round"
               />
             )}
-            {/* <Annotation
-              subject={[worldCities[50].lat, worldCities[49].lng]}
+            <Annotation
+              subject={[13.24, 52.31]}
               dx={-90}
-              dy={-30}
+              dy={-80}
               connectorProps={{
                 stroke: "green",
                 strokeWidth: 3,
@@ -147,11 +147,12 @@ const App = () => {
                 x="-8"
                 textAnchor="end"
                 alignmentBaseline="middle"
-                fill="#F53"
+                fill="#ff33dd"
+                fontWeight={600}
               >
-                {"Paris"}
+                {"Berlin"}
               </text>
-            </Annotation> */}
+            </Annotation>
           </ZoomableGroup>
         </ComposableMap>
       </div>
