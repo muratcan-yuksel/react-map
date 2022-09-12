@@ -1,4 +1,4 @@
-import React, { useState, memo, useEffect } from "react";
+import React, { useState, memo, useEffect, useRef } from "react";
 import "./App.css";
 import {
   ComposableMap,
@@ -23,7 +23,8 @@ const App = () => {
       properties: { city: "Moscow" },
     },
   ]);
-  const [location, setLocation] = useState([[2.2, 48.52]]);
+  const [location, setLocation] = useState([]);
+  const locationRef = useRef([]);
   const [bool, setBool] = useState(false);
   // const [country, setCountry] = useState("");
   const worldMap =
@@ -45,17 +46,19 @@ const App = () => {
     // addLocation();
   };
 
-  // const addLocation = () => {
-  //   setLocation((location) => [
-  //     ...location,
-  //     chosenCountry[0].geometry.coordinates,
-  //   ]);
-  //   console.log(location);
-  // };
+  const addLocation = () => {
+    const locationArray = [...location, chosenCountry[0].geometry.coordinates];
+    setLocation(locationArray);
+    console.log(location);
+    locationRef.current = locationArray;
+    console.log(locationRef.current);
+  };
 
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [location.length]);
+  useEffect(() => {
+    addLocation();
+
+    console.log(location);
+  }, [chosenCountry]);
 
   return (
     <div className="App">
@@ -115,21 +118,21 @@ const App = () => {
               </text>
             </Marker>
             {/* Line from A to B */}
-            {/* {location.length > 1 && (
+            {locationRef.current.length > 1 && (
               <Line
                 from={[
-                  location[location.length - 2][0],
-                  location[location.length - 2][1],
+                  locationRef.current[locationRef.current.length - 2][0],
+                  locationRef.current[locationRef.current.length - 2][1],
                 ]}
                 to={[
-                  location[location.length - 1][0],
-                  location[location.length - 1][1],
+                  locationRef.current[locationRef.current.length - 1][0],
+                  locationRef.current[locationRef.current.length - 1][1],
                 ]}
                 stroke="#FF5533"
                 strokeWidth={4}
                 strokeLinecap="round"
               />
-            )} */}
+            )}
             {/* <Annotation
               subject={[worldCities[50].lat, worldCities[49].lng]}
               dx={-90}
