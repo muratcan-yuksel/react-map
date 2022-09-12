@@ -84,23 +84,6 @@ const App = () => {
                 ))
               }
             </Geographies>
-            {/* markers */}
-            {/* {worldCities.features.map(({ geometry, properties }) => {
-              return (
-                <Marker
-                  key={geometry.coordinates}
-                  coordinates={geometry.coordinates}
-                >
-                  <circle r={5} fill="yellow" stroke="white" strokeWidth={2} />
-                  <text
-                    textAnchor="middle"
-                    style={{ fontFamily: "system-ui", fill: "orange" }}
-                  >
-                    {properties.city}
-                  </text>
-                </Marker>
-              );
-            })} */}
 
             {/* <Marker coordinates={chosenCountry[0].geometry.coordinates}> */}
             <Marker coordinates={chosenCountry[0].geometry.coordinates}>
@@ -109,7 +92,7 @@ const App = () => {
                 textAnchor="middle"
                 style={{
                   fontFamily: "system-ui",
-                  fill: "yellow",
+                  fill: "red",
                   fontWeight: "bold",
                 }}
               >
