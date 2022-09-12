@@ -23,7 +23,7 @@ const App = () => {
       properties: { city: "Moscow" },
     },
   ]);
-  const [location, setLocation] = useState([]);
+  const [location, setLocation] = useState([[2.2, 48.52]]);
   const [bool, setBool] = useState(false);
   // const [country, setCountry] = useState("");
   const worldMap =
@@ -42,21 +42,20 @@ const App = () => {
     // console.log(chosenCountry[0]);
 
     // console.log(content.toString());
-    addLocation();
+    // addLocation();
   };
 
-  const addLocation = () => {
-    setLocation((location) => [
-      ...location,
-      chosenCountry[0].geometry.coordinates,
-    ]);
-    console.log(location);
-  };
+  // const addLocation = () => {
+  //   setLocation((location) => [
+  //     ...location,
+  //     chosenCountry[0].geometry.coordinates,
+  //   ]);
+  //   console.log(location);
+  // };
 
-  useEffect(() => {
-    console.log(location);
-    setBool(true);
-  }, [location.length]);
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location.length]);
 
   return (
     <div className="App">
@@ -116,7 +115,7 @@ const App = () => {
               </text>
             </Marker>
             {/* Line from A to B */}
-            {location.length > 1 && (
+            {/* {location.length > 1 && (
               <Line
                 from={[
                   location[location.length - 2][0],
@@ -130,7 +129,7 @@ const App = () => {
                 strokeWidth={4}
                 strokeLinecap="round"
               />
-            )}
+            )} */}
             {/* <Annotation
               subject={[worldCities[50].lat, worldCities[49].lng]}
               dx={-90}
